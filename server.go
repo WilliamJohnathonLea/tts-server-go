@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/WilliamJohnathonLea/tts-server-go/controllers"
 	"io"
 	"html/template"
-	"net/http"
 	"github.com/labstack/echo"
 )
 
@@ -21,8 +21,6 @@ func main() {
 	e := echo.New()
 	t := &Template{template.Must(template.ParseGlob("views/*.html"))}
 	e.Renderer = t
-	e.GET("/hello", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "main.html", nil)
-	})
+	e.GET("/", controllers.Home)
 	e.Logger.Fatal(e.Start(":9000"))
 }
