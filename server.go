@@ -19,8 +19,11 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func main() {
 	e := echo.New()
+	e.HideBanner = true
 	t := &Template{template.Must(template.ParseGlob("views/*.html"))}
 	e.Renderer = t
 	e.GET("/", controllers.Home)
+	e.GET("/post-message", controllers.PostMessagePage)
+	e.POST("post-message", controllers.PostMessage)
 	e.Logger.Fatal(e.Start(":9000"))
 }
